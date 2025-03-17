@@ -24,7 +24,7 @@ SECRET_KEY = "django-insecure-3l@v-htz7&0=r0+3d@ou5w0-zicy+x-g8j5bya$5_ax2)%u^3g
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+DOCKER = True
 ALLOWED_HOSTS = []
 
 
@@ -74,12 +74,25 @@ WSGI_APPLICATION = "django_telegram_bot.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+if DOCKER:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": "postgres",
+            "USER": "postgres",
+            "PASSWORD": "postgres",
+            "HOST": "db",  # Ensure this matches the service name in Docker Compose
+            "PORT": 5432,  # Default PostgreSQL port
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
+
 
 
 # Password validation
@@ -122,3 +135,5 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+STATIC_ROOT='static/'
