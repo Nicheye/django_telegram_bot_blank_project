@@ -4,3 +4,6 @@ A boilerplate Django project integrated with a Telegram bot, designed to kicksta
 Features
 Django Project Setup: Pre-configured Django project with essential settings.
 Environment Management: Uses python-dotenv for managing environment variables.
+
+It just says hello user or create a django user in db
+jus simple django telegram app
